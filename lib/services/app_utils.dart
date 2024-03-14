@@ -1,6 +1,10 @@
 import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+import 'helper/error_box_widget.dart';
 
 class AppUtil {
   static Future<bool> checkNetwork() async {
@@ -24,5 +28,21 @@ class AppUtil {
         return false;
       }
     }
+  }
+
+
+
+  static showDialogbox(
+    BuildContext context,
+    title,
+  ) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return ErrorBoxWidget(
+            title: title.toString() ?? "Oops Something Went Wrong",
+          );
+        });
   }
 }

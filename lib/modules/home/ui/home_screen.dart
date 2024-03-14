@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:relu_consultancy_task/modules/Details/bloc/details_bloc.dart';
 import 'package:relu_consultancy_task/modules/home/bloc/home_bloc.dart';
 
 import 'package:relu_consultancy_task/modules/home/bloc/home_event.dart';
 import 'package:relu_consultancy_task/modules/home/bloc/home_state.dart';
 
+import '../../../services/api.dart';
+import '../../Details/ui/details_view.dart';
 import '../respose_model/home_respose_model.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -59,20 +62,37 @@ class _HomeScreenState extends State<HomeScreen> {
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.white,
                         ),
-                        child: ListTile(
-                          leading: Icon(Icons.music_note),
-                          title: Text(
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              state.data[index].track!.albumName.toString()),
-                          subtitle: Text(
-                              maxLines: 2,
-                              overflow: TextOverflow.clip,
-                              state.data[index].track!.trackName.toString()),
-                          trailing: Text(
-                            state.data[index].track!.artistName.toString(),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    BlocProvider<DetailsScreenBloc>(
+                                  create: (context) =>
+                                      DetailsScreenBloc(ApiService()),
+                                  child: DetailsScreen(
+                                      id: state.data[index].track!.trackId
+                                          .toString()),
+                                ),
+                              ),
+                            );
+                          },
+                          child: ListTile(
+                            leading: Icon(Icons.music_note),
+                            title: Text(
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                state.data[index].track!.albumName.toString()),
+                            subtitle: Text(
+                                maxLines: 2,
+                                overflow: TextOverflow.clip,
+                                state.data[index].track!.trackName.toString()),
+                            trailing: Text(
+                              state.data[index].track!.artistName.toString(),
+                            ),
+                            // Add more UI components here
                           ),
-                          // Add more UI components here
                         ),
                       ),
                     );
