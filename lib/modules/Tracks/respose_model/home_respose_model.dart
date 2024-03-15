@@ -1,26 +1,26 @@
 // To parse this JSON data, do
 //
-//     final detailsScreenResponse = detailsScreenResponseFromJson(jsonString);
+//     final homeScreenResponse = homeScreenResponseFromJson(jsonString);
 
 import 'dart:convert';
 
-DetailsScreenResponse detailsScreenResponseFromJson(String str) =>
-    DetailsScreenResponse.fromJson(json.decode(str));
+TracksScreenResponse homeScreenResponseFromJson(String str) =>
+    TracksScreenResponse.fromJson(json.decode(str));
 
-String detailsScreenResponseToJson(DetailsScreenResponse data) =>
+String homeScreenResponseToJson(TracksScreenResponse data) =>
     json.encode(data.toJson());
 
-class DetailsScreenResponse {
+class TracksScreenResponse {
   Message? message;
   int? statusCode;
   String? error;
-  Track? track;
+  List<TrackList>? trackList;
 
-  DetailsScreenResponse(
-      {this.message, this.statusCode, this.error, this.track});
+  TracksScreenResponse(
+      {this.message, this.statusCode, this.error, this.trackList});
 
-  factory DetailsScreenResponse.fromJson(Map<String, dynamic> json) =>
-      DetailsScreenResponse(
+  factory TracksScreenResponse.fromJson(Map<String, dynamic> json) =>
+      TracksScreenResponse(
         message:
             json["message"] == null ? null : Message.fromJson(json["message"]),
       );
@@ -51,13 +51,34 @@ class Message {
 }
 
 class Body {
-  Track? track;
+  List<TrackList>? trackList;
 
   Body({
-    this.track,
+    this.trackList,
   });
 
   factory Body.fromJson(Map<String, dynamic> json) => Body(
+        trackList: json["track_list"] == null
+            ? []
+            : List<TrackList>.from(
+                json["track_list"]!.map((x) => TrackList.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "track_list": trackList == null
+            ? []
+            : List<dynamic>.from(trackList!.map((x) => x.toJson())),
+      };
+}
+
+class TrackList {
+  Track? track;
+
+  TrackList({
+    this.track,
+  });
+
+  factory TrackList.fromJson(Map<String, dynamic> json) => TrackList(
         track: json["track"] == null ? null : Track.fromJson(json["track"]),
       );
 
@@ -69,7 +90,7 @@ class Body {
 class Track {
   int? trackId;
   String? trackName;
-  List<dynamic>? trackNameTranslationList;
+  List<TrackNameTranslationList>? trackNameTranslationList;
   int? trackRating;
   int? commontrackId;
   int? instrumental;
@@ -87,37 +108,39 @@ class Track {
   int? restricted;
   DateTime? updatedTime;
   PrimaryGenres? primaryGenres;
+  String? lyrics;
 
-  Track({
-    this.trackId,
-    this.trackName,
-    this.trackNameTranslationList,
-    this.trackRating,
-    this.commontrackId,
-    this.instrumental,
-    this.explicit,
-    this.hasLyrics,
-    this.hasSubtitles,
-    this.hasRichsync,
-    this.numFavourite,
-    this.albumId,
-    this.albumName,
-    this.artistId,
-    this.artistName,
-    this.trackShareUrl,
-    this.trackEditUrl,
-    this.restricted,
-    this.updatedTime,
-    this.primaryGenres,
-  });
+  Track(
+      {this.trackId,
+      this.trackName,
+      this.trackNameTranslationList,
+      this.trackRating,
+      this.commontrackId,
+      this.instrumental,
+      this.explicit,
+      this.hasLyrics,
+      this.hasSubtitles,
+      this.hasRichsync,
+      this.numFavourite,
+      this.albumId,
+      this.albumName,
+      this.artistId,
+      this.artistName,
+      this.trackShareUrl,
+      this.trackEditUrl,
+      this.restricted,
+      this.updatedTime,
+      this.primaryGenres,
+      this.lyrics});
 
   factory Track.fromJson(Map<String, dynamic> json) => Track(
         trackId: json["track_id"],
         trackName: json["track_name"],
         trackNameTranslationList: json["track_name_translation_list"] == null
             ? []
-            : List<dynamic>.from(
-                json["track_name_translation_list"]!.map((x) => x)),
+            : List<TrackNameTranslationList>.from(
+                json["track_name_translation_list"]!
+                    .map((x) => TrackNameTranslationList.fromJson(x))),
         trackRating: json["track_rating"],
         commontrackId: json["commontrack_id"],
         instrumental: json["instrumental"],
@@ -146,7 +169,8 @@ class Track {
         "track_name": trackName,
         "track_name_translation_list": trackNameTranslationList == null
             ? []
-            : List<dynamic>.from(trackNameTranslationList!.map((x) => x)),
+            : List<dynamic>.from(
+                trackNameTranslationList!.map((x) => x.toJson())),
         "track_rating": trackRating,
         "commontrack_id": commontrackId,
         "instrumental": instrumental,
@@ -235,6 +259,46 @@ class MusicGenre {
         "music_genre_name": musicGenreName,
         "music_genre_name_extended": musicGenreNameExtended,
         "music_genre_vanity": musicGenreVanity,
+      };
+}
+
+class TrackNameTranslationList {
+  TrackNameTranslation? trackNameTranslation;
+
+  TrackNameTranslationList({
+    this.trackNameTranslation,
+  });
+
+  factory TrackNameTranslationList.fromJson(Map<String, dynamic> json) =>
+      TrackNameTranslationList(
+        trackNameTranslation: json["track_name_translation"] == null
+            ? null
+            : TrackNameTranslation.fromJson(json["track_name_translation"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "track_name_translation": trackNameTranslation?.toJson(),
+      };
+}
+
+class TrackNameTranslation {
+  String? language;
+  String? translation;
+
+  TrackNameTranslation({
+    this.language,
+    this.translation,
+  });
+
+  factory TrackNameTranslation.fromJson(Map<String, dynamic> json) =>
+      TrackNameTranslation(
+        language: json["language"],
+        translation: json["translation"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "language": language,
+        "translation": translation,
       };
 }
 

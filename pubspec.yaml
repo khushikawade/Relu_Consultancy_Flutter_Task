@@ -42,6 +42,7 @@ dependencies:
   stacked_services: ^1.4.0
   build_runner: ^2.4.8
   flutter_offline: ^3.0.1
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:

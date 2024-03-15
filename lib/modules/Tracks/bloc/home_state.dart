@@ -2,18 +2,18 @@ import 'package:equatable/equatable.dart';
 
 import '../respose_model/home_respose_model.dart';
 
-abstract class HomeScreenState extends Equatable {
-  const HomeScreenState();
+abstract class TracksScreenState extends Equatable {
+  const TracksScreenState();
 
   @override
   List<Object> get props => [];
 }
 
-class DataInitial extends HomeScreenState {}
+class DataInitial extends TracksScreenState {}
 
-class DataLoading extends HomeScreenState {}
+class DataLoading extends TracksScreenState {}
 
-class DataLoaded extends HomeScreenState {
+class DataLoaded extends TracksScreenState {
   final List<TrackList> trackList;
   // print(data.length);
 
@@ -23,4 +23,4 @@ class DataLoaded extends HomeScreenState {
   List<Object> get props => [trackList];
 }
 
-class DataError extends HomeScreenState {}
+class DataError extends TracksScreenState {}

@@ -1,26 +1,26 @@
 // To parse this JSON data, do
 //
-//     final homeScreenResponse = homeScreenResponseFromJson(jsonString);
+//     final detailsScreenResponse = detailsScreenResponseFromJson(jsonString);
 
 import 'dart:convert';
 
-HomeScreenResponse homeScreenResponseFromJson(String str) =>
-    HomeScreenResponse.fromJson(json.decode(str));
+TrackDetailsScreenResponse detailsScreenResponseFromJson(String str) =>
+    TrackDetailsScreenResponse.fromJson(json.decode(str));
 
-String homeScreenResponseToJson(HomeScreenResponse data) =>
+String detailsScreenResponseToJson(TrackDetailsScreenResponse data) =>
     json.encode(data.toJson());
 
-class HomeScreenResponse {
+class TrackDetailsScreenResponse {
   Message? message;
   int? statusCode;
   String? error;
-  List<TrackList>? trackList;
+  Track? track;
 
-  HomeScreenResponse(
-      {this.message, this.statusCode, this.error, this.trackList});
+  TrackDetailsScreenResponse(
+      {this.message, this.statusCode, this.error, this.track});
 
-  factory HomeScreenResponse.fromJson(Map<String, dynamic> json) =>
-      HomeScreenResponse(
+  factory TrackDetailsScreenResponse.fromJson(Map<String, dynamic> json) =>
+      TrackDetailsScreenResponse(
         message:
             json["message"] == null ? null : Message.fromJson(json["message"]),
       );
@@ -51,34 +51,13 @@ class Message {
 }
 
 class Body {
-  List<TrackList>? trackList;
-
-  Body({
-    this.trackList,
-  });
-
-  factory Body.fromJson(Map<String, dynamic> json) => Body(
-        trackList: json["track_list"] == null
-            ? []
-            : List<TrackList>.from(
-                json["track_list"]!.map((x) => TrackList.fromJson(x))),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "track_list": trackList == null
-            ? []
-            : List<dynamic>.from(trackList!.map((x) => x.toJson())),
-      };
-}
-
-class TrackList {
   Track? track;
 
-  TrackList({
+  Body({
     this.track,
   });
 
-  factory TrackList.fromJson(Map<String, dynamic> json) => TrackList(
+  factory Body.fromJson(Map<String, dynamic> json) => Body(
         track: json["track"] == null ? null : Track.fromJson(json["track"]),
       );
 
@@ -90,7 +69,7 @@ class TrackList {
 class Track {
   int? trackId;
   String? trackName;
-  List<TrackNameTranslationList>? trackNameTranslationList;
+  List<dynamic>? trackNameTranslationList;
   int? trackRating;
   int? commontrackId;
   int? instrumental;
@@ -137,9 +116,8 @@ class Track {
         trackName: json["track_name"],
         trackNameTranslationList: json["track_name_translation_list"] == null
             ? []
-            : List<TrackNameTranslationList>.from(
-                json["track_name_translation_list"]!
-                    .map((x) => TrackNameTranslationList.fromJson(x))),
+            : List<dynamic>.from(
+                json["track_name_translation_list"]!.map((x) => x)),
         trackRating: json["track_rating"],
         commontrackId: json["commontrack_id"],
         instrumental: json["instrumental"],
@@ -168,8 +146,7 @@ class Track {
         "track_name": trackName,
         "track_name_translation_list": trackNameTranslationList == null
             ? []
-            : List<dynamic>.from(
-                trackNameTranslationList!.map((x) => x.toJson())),
+            : List<dynamic>.from(trackNameTranslationList!.map((x) => x)),
         "track_rating": trackRating,
         "commontrack_id": commontrackId,
         "instrumental": instrumental,
@@ -258,46 +235,6 @@ class MusicGenre {
         "music_genre_name": musicGenreName,
         "music_genre_name_extended": musicGenreNameExtended,
         "music_genre_vanity": musicGenreVanity,
-      };
-}
-
-class TrackNameTranslationList {
-  TrackNameTranslation? trackNameTranslation;
-
-  TrackNameTranslationList({
-    this.trackNameTranslation,
-  });
-
-  factory TrackNameTranslationList.fromJson(Map<String, dynamic> json) =>
-      TrackNameTranslationList(
-        trackNameTranslation: json["track_name_translation"] == null
-            ? null
-            : TrackNameTranslation.fromJson(json["track_name_translation"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "track_name_translation": trackNameTranslation?.toJson(),
-      };
-}
-
-class TrackNameTranslation {
-  String? language;
-  String? translation;
-
-  TrackNameTranslation({
-    this.language,
-    this.translation,
-  });
-
-  factory TrackNameTranslation.fromJson(Map<String, dynamic> json) =>
-      TrackNameTranslation(
-        language: json["language"],
-        translation: json["translation"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "language": language,
-        "translation": translation,
       };
 }
 
