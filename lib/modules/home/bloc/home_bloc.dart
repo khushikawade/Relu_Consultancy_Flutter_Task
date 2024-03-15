@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:relu_consultancy_task/modules/home/bloc/home_event.dart';
 import 'package:relu_consultancy_task/modules/home/bloc/home_state.dart';
@@ -9,10 +10,11 @@ import '../../../services/constant.dart';
 
 class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
   final ApiService apiService;
+  final BuildContext context;
 
   // HomeScreenBloc(this.apiService) : super(DataInitial());/
 
-  HomeScreenBloc(this.apiService) : super(DataInitial()) {
+  HomeScreenBloc(this.apiService, this.context) : super(DataInitial()) {
     on<FetchHomeScreenData>((event, emit) async {
       emit(DataLoading());
       try {
@@ -28,11 +30,24 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
             // Emit success state or update UI accordingly
             break;
           case Constants.wrongError:
-            // AppUtil.showDialogbox(AppUtil.getContext(),
-            //     homeScreenResponse.error ?? 'Oops Something went wrong');
+            // ignore: use_build_context_synchronously
+            AppUtil.showDialogbox(context,
+                homeScreenResponse.error ?? 'Oops Something went wrong');
+            break;
+          case Constants.networkErroCode:
+            // ignore: use_build_context_synchronously
+            AppUtil.showDialogbox(context,
+                homeScreenResponse.error ?? 'Oops Something went wrong');
+
             break;
           default:
-            // Handle other status codes if needed
+            {
+              if (homeScreenResponse.error != null &&
+                  homeScreenResponse.error!.isNotEmpty) {
+                AppUtil.showDialogbox(context,
+                    homeScreenResponse.error ?? 'Oops Something went wrong');
+              }
+            }
             break;
         }
       } catch (_) {

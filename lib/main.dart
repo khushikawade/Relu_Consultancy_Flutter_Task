@@ -17,8 +17,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: BlocProvider<HomeScreenBloc>(
-        create: (context) =>
-            HomeScreenBloc(ApiService()), // Provide your DataBloc instance
+        create: (context) => HomeScreenBloc(
+            ApiService(), context), // Provide your DataBloc instance
         child: const HomeScreen(),
       ),
     );

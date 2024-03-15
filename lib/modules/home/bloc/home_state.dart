@@ -14,13 +14,13 @@ class DataInitial extends HomeScreenState {}
 class DataLoading extends HomeScreenState {}
 
 class DataLoaded extends HomeScreenState {
-  final List<TrackList> data;
+  final List<TrackList> trackList;
   // print(data.length);
 
-  const DataLoaded(this.data);
+  const DataLoaded(this.trackList);
 
   @override
-  List<Object> get props => [data];
+  List<Object> get props => [trackList];
 }
 
 class DataError extends HomeScreenState {}
