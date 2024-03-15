@@ -34,10 +34,10 @@ class _TrackDetailsScreenState extends State<TrackDetailsScreen> {
             ),
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(
-                bottom: Radius.circular(40), // Adjust the radius as needed
+                bottom: Radius.circular(30), // Adjust the radius as needed
               ),
             ),
-            backgroundColor: Colors.deepPurple,
+            backgroundColor: const Color.fromARGB(255, 221, 17, 85),
             centerTitle: true,
             title: const Text(
               'Tracks Details',
@@ -72,7 +72,10 @@ bodyWidget(context, id) {
     child: BlocBuilder<TrackDetailsScreenBloc, TrackDetailsScreenState>(
       builder: (context, state) {
         if (state is DataLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(
+              child: CircularProgressIndicator(
+            color: const Color.fromARGB(255, 221, 17, 85),
+          ));
         } else if (state is DataLoaded) {
           return Padding(
             padding: const EdgeInsets.all(16),

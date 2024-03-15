@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      color: const Color.fromARGB(255, 221, 17, 85),
       debugShowCheckedModeBanner: false,
       home: BlocProvider<TracksScreenBloc>(
         create: (context) =>
