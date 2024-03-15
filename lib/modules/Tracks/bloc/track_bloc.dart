@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:relu_consultancy_task/modules/Tracks/bloc/home_event.dart';
-import 'package:relu_consultancy_task/modules/Tracks/bloc/home_state.dart';
+import 'package:relu_consultancy_task/modules/Tracks/bloc/track_event.dart';
+import 'package:relu_consultancy_task/modules/Tracks/bloc/track_state.dart';
 import 'package:relu_consultancy_task/modules/Tracks/respose_model/home_respose_model.dart';
 import '../../../services/api.dart';
 
@@ -10,7 +10,7 @@ class TracksScreenBloc extends Bloc<HomeScreenEvent, TracksScreenState> {
   final BuildContext context;
 
   TracksScreenBloc(this.apiService, this.context) : super(DataInitial()) {
-    on<FetchHomeScreenData>((event, emit) async {
+    on<FetchTrackScreenData>((event, emit) async {
       emit(DataLoading());
       try {
         final homeScreenResponse = await apiService

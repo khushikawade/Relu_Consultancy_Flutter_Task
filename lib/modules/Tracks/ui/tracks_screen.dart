@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_offline/flutter_offline.dart';
 import 'package:relu_consultancy_task/modules/Tracks_Details/bloc/details_bloc.dart';
-import 'package:relu_consultancy_task/modules/Tracks/bloc/home_bloc.dart';
+import 'package:relu_consultancy_task/modules/Tracks/bloc/track_bloc.dart';
 
-import 'package:relu_consultancy_task/modules/Tracks/bloc/home_event.dart';
-import 'package:relu_consultancy_task/modules/Tracks/bloc/home_state.dart';
+import 'package:relu_consultancy_task/modules/Tracks/bloc/track_event.dart';
+import 'package:relu_consultancy_task/modules/Tracks/bloc/track_state.dart';
 
 import '../../../services/api.dart';
 import '../../../services/helper/network_error widget.dart';
@@ -22,7 +22,7 @@ class _TracksScreenState extends State<TracksScreen> {
   @override
   Widget build(BuildContext context) {
     final homeScreenBloc = BlocProvider.of<TracksScreenBloc>(context);
-    homeScreenBloc.add(FetchHomeScreenData());
+    homeScreenBloc.add(FetchTrackScreenData());
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
@@ -99,60 +99,42 @@ bodyWidget(context) {
                         ),
                       );
                     },
-                    // child: ListTile(
-                    //   leading: Icon(Icons.music_note),
-                    //   title: Text(
-                    //     maxLines: 1,
-                    //     overflow: TextOverflow.ellipsis,
-                    //     state.trackList[index].track!.albumName != null &&
-                    //             state.trackList[index].track!.albumName!
-                    //                 .isNotEmpty
-                    //         ? state.trackList[index].track!.albumName.toString()
-                    //         : "NA",
-                    //     style: TextStyle(fontWeight: FontWeight.bold),
-                    //   ),
-                    //   subtitle: state.trackList[index].track!.lyrics != null
-                    //       ? Text(
-                    //           maxLines: 2,
-                    //           overflow: TextOverflow.clip,
-                    //           state.trackList[index].track!.lyrics.toString())
-                    //       : ShimmerLoading(
-                    //           isLoading: true,
-                    //           child: Container(
-                    //             width: double.infinity,
-                    //             height: 20,
-                    //             decoration: BoxDecoration(
-                    //               borderRadius: BorderRadius.circular(10),
-                    //               color: Colors.grey[100],
-                    //             ),
-                    //           )),
-                    //   trailing: Text(
-                    //     state.trackList[index].track!.artistName != null &&
-                    //             state.trackList[index].track!.artistName!
-                    //                 .isNotEmpty
-                    //         ? state.trackList[index].track!.artistName
-                    //             .toString()
-                    //         : "NA",
-                    //   ),
-                    //   // Add more UI components here
-                    // ),
-
-                    child: Row(
-                      children: [
-                        Column(
-                          children: [],
-                        ),
-                        Column(
-                          children: [
-                            Row(
-                              children: [],
-                            )
-                          ],
-                        ),
-                        Column(
-                          children: [],
-                        )
-                      ],
+                    child: ListTile(
+                      leading: Icon(Icons.music_note),
+                      title: Text(
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        state.trackList[index].track!.albumName != null &&
+                                state.trackList[index].track!.albumName!
+                                    .isNotEmpty
+                            ? state.trackList[index].track!.albumName.toString()
+                            : "NA",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: state.trackList[index].track!.lyrics != null
+                          ? Text(
+                              maxLines: 2,
+                              overflow: TextOverflow.clip,
+                              state.trackList[index].track!.lyrics.toString())
+                          : ShimmerLoading(
+                              isLoading: true,
+                              child: Container(
+                                width: double.infinity,
+                                height: 20,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.grey[100],
+                                ),
+                              )),
+                      trailing: Text(
+                        state.trackList[index].track!.artistName != null &&
+                                state.trackList[index].track!.artistName!
+                                    .isNotEmpty
+                            ? state.trackList[index].track!.artistName
+                                .toString()
+                            : "NA",
+                      ),
+                      // Add more UI components here
                     ),
                   ),
                 ),

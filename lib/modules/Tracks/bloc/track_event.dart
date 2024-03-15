@@ -8,4 +8,4 @@ abstract class HomeScreenEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class FetchHomeScreenData extends HomeScreenEvent {}
+class FetchTrackScreenData extends HomeScreenEvent {}

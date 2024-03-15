@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:relu_consultancy_task/modules/Tracks/bloc/home_bloc.dart';
+import 'package:relu_consultancy_task/modules/Tracks/bloc/track_bloc.dart';
 import 'package:relu_consultancy_task/modules/Tracks/ui/tracks_screen.dart';
 
 import 'services/api.dart';
